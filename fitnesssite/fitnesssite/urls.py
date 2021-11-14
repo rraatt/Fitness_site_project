@@ -17,9 +17,12 @@ from django.contrib import admin
 from django.urls import path
 
 from training.views import home, schedule
+from abonement.views import index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', home),
+    path('abonement', index)
     path('', home),
     path('schedule', schedule)
 ]
