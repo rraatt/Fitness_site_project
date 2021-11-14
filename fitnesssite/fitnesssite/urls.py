@@ -22,7 +22,6 @@ from abonement.views import index
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home),
-    path('abonement', index)
-    path('', home),
+    path('abonement', index),
     path('schedule', schedule)
 ]
