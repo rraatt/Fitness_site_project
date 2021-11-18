@@ -3,17 +3,34 @@ from django.db import models
 # Create your models here.
 
 
-class Abonnements(models.Model):
-    type_id = models.ForeignKey()
-    client_id = models.ForeignKey()
-    trainer_id = models.ForeignKey()
+class Employees(models.Model):
+    SEX = [
+        ('m', 'man'),
+        ('w', 'woman'),
+        ('t', 'they')
+    ]
+    name = models.CharField(max_length=63)
+    surname = models.CharField(max_length=63)
+    patronymic = models.CharField(max_length=63)
+    date_of_birthday = models.DateField()
+    sex = models.CharField(max_length=1, choices=SEX)
+    address = models.CharField(max_length=63)
+    phone = models.CharField(max_length=10)
+    rank = models.CharField(max_length=10)
+    profession = models.CharField(max_length=63) #choice???
+
+
+class Abonements(models.Model):
+    type_id = models.ForeignKey('AbonementType', on_delete=models.PROTECT)
+    client_id = models.ForeignKey('Client', on_delete=models.PROTECT)
+    trainer_id = models.ForeignKey(Employees, on_delete=models.PROTECT)
     purchase_date = models.DateField(auto_now_add=True)
     duration = models.DurationField()
     num_of_trainings = models.IntegerField()
     price = models.IntegerField()
 
 
-class AbonnementType(models.Model):
+class AbonementType(models.Model):
     TRAINING_TYPE = [
         ('p', 'personal'),
         ('g', 'group')
@@ -35,7 +52,5 @@ class Client(models.Model):
     patronymic = models.CharField(max_length=50)
     birthday = models.DateField()
     sex = models.CharField(max_length=1, choices=SEX)
-    phone_number = models.IntegerField(max_length=20)
-    abonement = models.ForeignKey()
-    trainer = models.IntegerField()
+    phone_number = models.IntegerField()
     description = models.TextField(blank=True)
