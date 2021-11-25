@@ -9,6 +9,10 @@ class Employees(models.Model):
         ('w', 'woman'),
         ('t', 'they')
     ]
+    PROFESSION = [
+        ('t', 'trainer'),
+        ('d', 'doctor')
+    ]
     name = models.CharField(max_length=63)
     surname = models.CharField(max_length=63)
     patronymic = models.CharField(max_length=63)
@@ -17,13 +21,13 @@ class Employees(models.Model):
     address = models.CharField(max_length=63)
     phone = models.CharField(max_length=10)
     rank = models.CharField(max_length=10)
-    profession = models.CharField(max_length=63) #choice???
+    profession = models.CharField(max_length=1, choices=PROFESSION)
 
 
 class Abonements(models.Model):
     type_id = models.ForeignKey('AbonementType', on_delete=models.PROTECT)
     client_id = models.ForeignKey('Client', on_delete=models.PROTECT)
-    trainer_id = models.ForeignKey(Employees, on_delete=models.PROTECT)
+    trainer_id = models.ForeignKey(Employees, on_delete=models.PROTECT, limit_choices_to={'profession': 't'})
     purchase_date = models.DateField(auto_now_add=True)
     duration = models.DurationField()
     num_of_trainings = models.IntegerField()

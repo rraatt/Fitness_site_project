@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 from examination.models import Methodic
 from abonement.models import Client, Employees
 
@@ -6,12 +8,13 @@ from abonement.models import Client, Employees
 
 
 class Schedule(models.Model):
-    id_trainer = models.ForeignKey(Employees, on_delete=models.CASCADE)
-    id_client = models.ForeignKey(Client, on_delete=models.CASCADE) #how to reference group based on bool??
+    id_trainer = models.ForeignKey(Employees, on_delete=models.CASCADE, limit_choices_to={'profession': 't'})
+    training_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    id_client_group = GenericForeignKey('training_type', 'object_id')
     date = models.DateField()
     time_start = models.TimeField()
     time_end = models.TimeField()
-    is_group = models.BooleanField(default=False)
 
 
 class Training(models.Model):
