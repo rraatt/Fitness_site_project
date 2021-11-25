@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'training.apps.TrainingConfig',
     'abonement.apps.AbonementConfig',
-    'examination.apps.ExaminationConfig'
+    'examination.apps.ExaminationConfig',
+    'rangefilter'
 ]
 
 MIDDLEWARE = [

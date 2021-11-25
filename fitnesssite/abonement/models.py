@@ -1,3 +1,4 @@
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 
 # Create your models here.
@@ -22,6 +23,9 @@ class Employees(models.Model):
     phone = models.CharField(max_length=10)
     rank = models.CharField(max_length=10)
     profession = models.CharField(max_length=1, choices=PROFESSION)
+
+    def __str__(self):
+        return f'{self.name} {self.surname}'
 
 
 class Abonements(models.Model):
@@ -58,3 +62,6 @@ class Client(models.Model):
     sex = models.CharField(max_length=1, choices=SEX)
     phone_number = models.IntegerField()
     description = models.TextField(blank=True)
+
+    def __str__(self):
+        return f'{self.name} {self.surname}'
