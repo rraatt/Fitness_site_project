@@ -4,6 +4,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelatio
 from django.contrib.contenttypes.models import ContentType
 from examination.models import Methodic
 from abonement.models import Client, Employees
+from django.urls import reverse
 
 # Create your models here.
 
@@ -21,6 +22,9 @@ class Schedule(models.Model):
     class Meta:
         verbose_name = 'Schedule of training'
         ordering = ['date']
+
+    def get_absolute_url(self):
+        return reverse('join_group', kwargs={'group_id': self.object_id})
 
     def __str__(self):
         return f'{self.id_client_group}, {self.date}'

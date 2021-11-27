@@ -7,5 +7,6 @@ class ExaminationAdmin(admin.ModelAdmin):
     search_fields = ('date_examination', 'id_client', 'id_employ')
     list_filter = (('date_examination', DateRangeFilter), 'weight')
 
+
 admin.site.register(Examination, ExaminationAdmin)
 admin.site.register(Methodic)
