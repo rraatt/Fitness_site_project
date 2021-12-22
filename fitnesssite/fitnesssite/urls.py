@@ -18,16 +18,12 @@ from django.urls import path
 
 from training.views import home, group_schedule, new_training, about, enlist
 from abonement.views import index
-from examination.views import examination
-
-from examination.views import Examination_page
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
     path('abonement', index),
     path('groups', group_schedule, name='group_schedule'),
-    path('Examination', Examination_page.as_view(), name='examination'),
     path('appointment', new_training, name='new_training'),
     path('about', about, name='about'),
     path('groups/<int:group_id>/', enlist, name='join_group')
