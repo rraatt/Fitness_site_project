@@ -1,9 +1,17 @@
 from django.shortcuts import render,HttpResponse
+from django.views.generic import ListView
 from .models import *
 
 def home(request):
-    return render(request, 'examination/home.html', {'title': 'Home page'})
+    return render(request, 'training/home.html', {'title': 'Home page'})
 
 def about(request):
-    return render(request, 'examination/about.html', {'title': 'About'})
+    return render(request, 'training/about.html', {'title': 'About'})
 
+def examination(request):
+    return render(request, 'training/examination.html', {'title': 'Examination'})
+
+
+class Examination_page(ListView):
+    model = Examination
+    template_name = 'training/examination.html'
