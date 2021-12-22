@@ -37,7 +37,7 @@ class Schedule(models.Model):
 
     class Meta:
         verbose_name = 'Schedule of training'
-        ordering = ['date']
+        ordering = ['date', 'time_start']
 
     def get_absolute_url(self):
         return reverse('join_group', kwargs={'group_id': self.client_group_id})

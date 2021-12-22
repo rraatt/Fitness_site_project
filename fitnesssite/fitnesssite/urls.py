@@ -16,14 +16,14 @@ Including another URL conf
 from django.contrib import admin
 from django.urls import path
 
-from training.views import home, group_schedule, new_training, about, enlist
+from training.views import home, new_training, about, enlist, GroupSchedule
 from abonement.views import index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
     path('abonement', index),
-    path('groups', group_schedule, name='group_schedule'),
+    path('groups', GroupSchedule.as_view(), name='group_schedule'),
     path('appointment', new_training, name='new_training'),
     path('about', about, name='about'),
     path('groups/<int:group_id>/', enlist, name='join_group')
