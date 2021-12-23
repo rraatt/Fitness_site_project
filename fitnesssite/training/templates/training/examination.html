@@ -1,10 +1,9 @@
 {% extends 'training/base.html' %}
-{% load examination_tags %}
 
 {% block content %}
 <h1>{{title}}</h1>
 <ul>
-    {% get_examination as info %}
+    {% for entry in info %}
     <li>
         <p>Client: {{entry.id_client}}<br>Date: {{entry.date_examination}}<br>Employ:{{entry.id_employ}}<br>
             Weight: {{entry.weight}}<br>IMT: {{entry.imt}}<br>Fat percentage: {{entry.fat_percentage}}<br>
@@ -14,5 +13,6 @@
         <hr>
 			</li>
     </li>
+    {% endfor %}
 </ul>
 {% endblock %}

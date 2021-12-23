@@ -58,7 +58,7 @@ class Training(models.Model):
 
 class Group(models.Model):
     name = models.CharField(max_length=50)
-    id_clients = models.ManyToManyField(Client)
+    id_clients = models.ManyToManyField(Client, blank=True)
 
     def __str__(self):
         return self.name
