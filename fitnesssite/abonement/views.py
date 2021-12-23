@@ -31,14 +31,14 @@ class AddAbonement(DataMixin, LoginRequiredMixin, CreateView):
 
 class ShowProfile(DataMixin, LoginRequiredMixin, CreateView):
     form_class = ClientForm
-    template_name = 'abonement/buy.html'
+    template_name = 'abonement/client.html'
     success_url = reverse_lazy('home')
-    login_url = reverse_lazy('home')
+    login_url = reverse_lazy('login')
     raise_exception = True
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title="Заказать абонементы")
+        c_def = self.get_user_context(title="Profile")
         return dict(list(context.items()) + list(c_def.items()))
 
 
