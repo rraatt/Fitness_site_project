@@ -5,11 +5,6 @@ from .models import *
 from abonement.models import Client
 
 
-def home(request):
-    return render(request, 'training/home.html', {'title': 'Home page'})
-
-def about(request):
-    return render(request, 'training/about.html', {'title': 'About'})
 
 def examination(request):
     return render(request, 'training/examination.html', {'title': 'Examination'})

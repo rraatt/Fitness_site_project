@@ -1,5 +1,12 @@
 {% extends 'training/base.html' %}
 
 {% block content %}
-<h1>New training</h1>
+<h1>{{title}}</h1>
+
+<form action="{%url 'new_training' %}" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">"Book"</button>
+</form>
+
 {% endblock %}

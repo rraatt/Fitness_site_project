@@ -4,9 +4,9 @@
 {% for entry in menu %}
     {% if not forloop.last %}
 			<li><a href="{% url entry.url_name %}">{{entry.title}}</a></li>
-<!--	{% else %}-->
-<!--			<li class="last"><a href="{% url entry.url_name %}">{{entry.title}}</a></li>-->
-<!--	{% endif %}-->
+
+	{% endif %}
 {% endfor %}
 	<li class="last"><a href="{% url 'register' %}">Sign up</a>|<a href="{% url 'login' %}">Sign in</a></li>
 </ul>
+</div>
