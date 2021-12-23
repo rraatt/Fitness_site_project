@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render, HttpResponse
-from django.views.generic import ListView
-
+from django.views.generic import ListView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import *
 
 # Create your views here.
@@ -10,14 +10,6 @@ from .models import *
 
 def home(request):
     return render(request, 'training/home.html', {'title': 'Home page'})
-
-
-def new_training(request):
-    return render(request, 'training/new_training.html', {'title': 'Make an appointment'})
-
-
-def about(request):
-    return render(request, 'training/about.html', {'title': 'About'})
 
 
 def enlist(request, group_id):
@@ -31,7 +23,7 @@ def enlist(request, group_id):
         return HttpResponse(f'Please authorize!')
 
 
-class PersonalSchedule(ListView):
+class PersonalSchedule(LoginRequiredMixin, ListView):
     model = Schedule
     extra_context = {'title': 'Your trainings'}
     template_name = 'training/personal_schedule'
@@ -43,15 +35,15 @@ class PersonalSchedule(ListView):
         return Schedule.objects.filter(client_group__client=cur_client)
 
 
-class PersonalGroup(ListView):
+class PersonalGroup(LoginRequiredMixin, ListView):
     model = Schedule
-    extra_context = {'title': 'Your group trainigs'}
+    extra_context = {'title': 'Your group trainings'}
     context_object_name = 'info'
-    template_name = 'training/schdule.html'
+    template_name = 'training/schedule.html'
 
     def get_queryset(self):
         current_user = self.request.user
-        cur_client = Schedule.objects.get(user=current_user)
+        cur_client = Client.objects.get(user=current_user)
         cur_groups = Group.objects.filter(id_clients=cur_client)
         return Schedule.objects.filter(client_group__group__in=cur_groups)
 
@@ -65,4 +57,16 @@ class GroupSchedule(ListView):
 
     def get_queryset(self):
         return Schedule.objects.filter(client_group__group__isnull=False)
+
+
+class NewTraining(LoginRequiredMixin, CreateView):
+
+    model = Schedule
+    fields = ('id_trainer', 'date', 'time_start', 'time_end')
+    success_url = 'personal_trainings'
+
+    def form_valid(self, form):
+        cur_client = self.request.user
+        form.instance.client = cur_client
+        return super(NewTraining, self).form_valid(form)
 
