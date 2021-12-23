@@ -1,5 +1,6 @@
 from django.shortcuts import render,HttpResponse
 from django.views.generic import ListView
+
 from .models import *
 
 def home(request):
@@ -15,3 +16,11 @@ def examination(request):
 class Examination_page(ListView):
     model = Examination
     template_name = 'training/examination.html'
+
+def login(request):
+    return render(request, 'training/login.html', {'title': 'Sign in'})
+
+def register(request):
+    return render(request, 'training/register.html', {'title': 'Sign up'})
+
+
