@@ -24,6 +24,7 @@ def enlist(request, group_id):
 
 
 class PersonalSchedule(LoginRequiredMixin, ListView):
+    login_url = 'login'
     model = Schedule
     extra_context = {'title': 'Your trainings'}
     template_name = 'training/personal_schedule'
@@ -36,6 +37,7 @@ class PersonalSchedule(LoginRequiredMixin, ListView):
 
 
 class PersonalGroup(LoginRequiredMixin, ListView):
+    login_url = 'login'
     model = Schedule
     extra_context = {'title': 'Your group trainings'}
     context_object_name = 'info'
@@ -60,13 +62,19 @@ class GroupSchedule(ListView):
 
 
 class NewTraining(LoginRequiredMixin, CreateView):
-
+    login_url = 'login'
     model = Schedule
     fields = ('id_trainer', 'date', 'time_start', 'time_end')
     success_url = 'personal_trainings'
+    template_name = 'training/new_training.html'
 
     def form_valid(self, form):
-        cur_client = self.request.user
-        form.instance.client = cur_client
+        cur_user = self.request.user
+        cur_client = Client.object.get(user=cur_user)
+        owner = Owner.objects.get(client=cur_client)
+        if owner:
+            form.instance.client_group = owner
+        else:
+            form.instance.client_group = Owner.objects.create(client=cur_client)
         return super(NewTraining, self).form_valid(form)
 
