@@ -17,13 +17,13 @@ from django.contrib import admin
 from django.urls import path
 
 from abonement.views import index, RegisterUser, LoginUser
-from training.views import home, NewTraining, enlist, GroupSchedule, PersonalGroup, PersonalSchedule
+from training.views import Home, NewTraining, enlist, GroupSchedule, PersonalGroup, PersonalSchedule
 from examination.views import *
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home, name='home'),
+    path('', Home.as_view(), name='home'),
     path('abonement', index),
     path('groups', GroupSchedule.as_view(), name='group_schedule'),
     path('login', LoginUser.as_view(), name='login'),
