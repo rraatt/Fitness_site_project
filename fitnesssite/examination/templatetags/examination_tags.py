@@ -1,12 +1,12 @@
 from django import template
-from examination.models import *
+from ..models import Examination
+
 
 register = template.Library()
 
 @register.simple_tag()
 def get_examination():
     return Examination.objects.all()
-
 
 @register.inclusion_tag('training/menu.html', name='menu')
 def show_menu():
