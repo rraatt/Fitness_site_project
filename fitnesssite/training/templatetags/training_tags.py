@@ -4,11 +4,6 @@ from training.models import *
 register = template.Library()
 
 
-@register.simple_tag()
-def get_groups_schedule():
-    return Schedule.objects.filter(client_group__group__isnull=False)
-
-
 @register.inclusion_tag('training/menu.html', name='menu')
 def show_menu():
     menu = [{'title': 'Make an appointment', 'url_name': 'new_training'},

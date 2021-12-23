@@ -1,4 +1,6 @@
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render, HttpResponse
+from django.views.generic import ListView
+
 from .models import *
 
 # Create your views here.
@@ -21,5 +23,13 @@ def enlist(request, group_id):
     return HttpResponse(f'You`ve joined group {group_id}')
 
 
-def group_schedule(request):
-    return render(request, 'training/schedule.html', {'title': 'Schedule info'})
+class GroupSchedule(ListView):
+    model = Schedule
+    template_name = 'training/schedule.html'
+    context_object_name = 'info'
+    extra_context = {'title': 'Group trainings'}
+    allow_empty = False
+
+    def get_queryset(self):
+        return Schedule.objects.filter(client_group__group__isnull=False)
+

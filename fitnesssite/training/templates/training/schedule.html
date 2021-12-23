@@ -1,15 +1,14 @@
 {% extends 'training/base.html' %}
-{% load training_tags %}
+
 
 {% block content %}
 <h1>{{title}}</h1>
 <ul>
-    {% get_groups_schedule as info %}
     {% for entry in info %}
     <li>
-        <p>{{entry.client_group__group}} {{entry.date}} {{entry.time_start}}-{{entry.time_end}}</p>
+        <p>{{entry.client_group}} {{entry.date}} {{entry.time_start}}-{{entry.time_end}}</p>
         <div class="clear"></div>
-			<p class="link-enlist"><a href="{{ entry.get_absolute_url }}">Join the group</a></p>
+			<p class="link-read-post"><a href="{{ entry.get_absolute_url }}">Join the group</a></p>
         <hr>
 			</li>
     </li>
