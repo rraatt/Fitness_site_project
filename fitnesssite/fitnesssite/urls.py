@@ -35,5 +35,4 @@ urlpatterns = [
     path('personal_group', PersonalGroup.as_view(), name='personal_group'),
     path('groups/<int:group_id>/', enlist, name='join_group'),
     path('profile', index, name='profile')
-
 ]
