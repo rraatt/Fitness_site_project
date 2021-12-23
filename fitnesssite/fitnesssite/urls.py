@@ -16,8 +16,8 @@ Including another URL conf
 from django.contrib import admin
 from django.urls import path
 
+from abonement.views import index, RegisterUser, LoginUser
 from training.views import home, NewTraining, enlist, GroupSchedule, PersonalGroup, PersonalSchedule
-from abonement.views import index
 from examination.views import *
 
 
@@ -26,11 +26,14 @@ urlpatterns = [
     path('', home, name='home'),
     path('abonement', index),
     path('groups', GroupSchedule.as_view(), name='group_schedule'),
-    path('login', login, name='login'),
-    path('register', register, name='register'),
+    path('login', LoginUser.as_view(), name='login'),
+    path('register', RegisterUser.as_view(), name='register'),
     path('Examination', Examination_page.as_view(), name='examination'),
     path('appointment', NewTraining.as_view(), name='new_training'),
     path('groups/<int:group_id>/', enlist, name='join_group'),
     path('personal_trainings', PersonalSchedule.as_view(), name='view_personal'),
     path('personal_group', PersonalGroup.as_view(), name='personal_group')
+    path('groups/<int:group_id>/', enlist, name='join_group'),
+    path('profile', index, name='profile')
+
 ]
