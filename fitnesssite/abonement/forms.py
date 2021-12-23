@@ -17,7 +17,7 @@ class ClientForm(forms.ModelForm):
         self.fields['name', 'surname', 'patronymic', 'birthday', 'sex', 'phone_number', 'description'].empty_label = "not selected"
 
     class Meta:
-        model = Abonements
+        model = Client
         fields = ['name', 'surname', 'patronymic', 'birthday', 'sex', 'phone_number', 'description']
         widgets = {
             'description': forms.Textarea(attrs={'cols': 60, 'rows': 10})
