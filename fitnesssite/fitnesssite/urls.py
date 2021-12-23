@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 
 from training.views import home, new_training, about, enlist, GroupSchedule
-from abonement.views import index
+from abonement.views import index, RegisterUser, LoginUser
 from examination.views import *
 
 
@@ -26,10 +26,12 @@ urlpatterns = [
     path('', home, name='home'),
     path('abonement', index),
     path('groups', GroupSchedule.as_view(), name='group_schedule'),
-    path('login', login, name='login'),
-    path('register', register, name='register'),
+    path('login', LoginUser.as_view(), name='login'),
+    path('register', RegisterUser.as_view(), name='register'),
     path('Examination', Examination_page.as_view(), name='examination'),
     path('appointment', new_training, name='new_training'),
     path('about', about, name='about'),
-    path('groups/<int:group_id>/', enlist, name='join_group')
+    path('groups/<int:group_id>/', enlist, name='join_group'),
+    path('profile', index, name='profile')
+
 ]

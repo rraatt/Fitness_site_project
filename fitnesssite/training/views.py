@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse
 from django.views.generic import ListView
+from django.contrib.auth.decorators import login_required
 
 from .models import *
 
@@ -21,6 +22,8 @@ def about(request):
 
 def enlist(request, group_id):
     return HttpResponse(f'You`ve joined group {group_id}')
+
+
 
 
 class GroupSchedule(ListView):
