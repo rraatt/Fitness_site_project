@@ -32,7 +32,7 @@ urlpatterns = [
     path('appointment', NewTraining.as_view(), name='new_training'),
     path('groups/<int:group_id>/', enlist, name='join_group'),
     path('personal_trainings', PersonalSchedule.as_view(), name='view_personal'),
-    path('personal_group', PersonalGroup.as_view(), name='personal_group')
+    path('personal_group', PersonalGroup.as_view(), name='personal_group'),
     path('groups/<int:group_id>/', enlist, name='join_group'),
     path('profile', index, name='profile')
 
