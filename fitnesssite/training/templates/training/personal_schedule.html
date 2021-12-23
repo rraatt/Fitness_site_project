@@ -1,0 +1,15 @@
+{% extends 'training/base.html' %}
+
+
+{% block content %}
+<h1>{{title}}</h1>
+<ul>
+    {% for entry in info %}
+    <li>
+        <p>{{entry.id_trainer}} {{entry.date}} {{entry.time_start}}-{{entry.time_end}}</p>
+        <hr>
+			</li>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
