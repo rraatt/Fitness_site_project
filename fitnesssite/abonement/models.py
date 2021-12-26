@@ -38,7 +38,7 @@ class Abonements(models.Model):
     purchase_date = models.DateField(auto_now_add=True)
     duration = models.DurationField()
     num_of_trainings = models.IntegerField()
-    #price = models.IntegerField(null=True)
+    #price = models.IntegerField()
 
 
 class AbonementType(models.Model):
@@ -50,6 +50,9 @@ class AbonementType(models.Model):
     pool = models.BooleanField(default=False)
     spa_zone = models.BooleanField(default=False)
     training_type = models.CharField(max_length=1, choices=TRAINING_TYPE)
+
+    def __str__(self):
+        return f'{self.name}'
 
 
 class Client(models.Model):

@@ -1,8 +1,8 @@
 menu = [{'title': 'Make an appointment', 'url_name': 'new_training'},
-        {'title': 'Group trainings', 'url_name': 'group_schedule'},
-        {'title': 'Examinations', 'url_name': 'examination'},
-        {'title': 'Buy abonement', 'url_name': 'buy'},
-        {'title': 'Profile', 'url_name': 'profile'},]
+            {'title': 'Group trainings', 'url_name': 'group_schedule'},
+            {'title': 'Examinations', 'url_name': 'examination'},
+            {'title': 'Buy abonement', 'url_name': 'buy'},
+            {'title': 'Profile', 'url_name': 'profile'}]
 
 
 class DataMixin:
@@ -10,6 +10,6 @@ class DataMixin:
         context = kwargs
         user_menu = menu.copy()
         if not self.request.user.is_authenticated:
-            user_menu.pop(4)
+            user_menu = []
         context['menu'] = user_menu
         return context
