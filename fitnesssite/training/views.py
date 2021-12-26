@@ -17,7 +17,6 @@ class Home(DataMixin, TemplateView):
         return dict(list(context.items()) + list(c_def.items()))
 
 
-
 def enlist(request, group_id):
     current_user = request.user
     if current_user.is_authenticated:
@@ -47,7 +46,6 @@ class PersonalSchedule(DataMixin, LoginRequiredMixin, ListView):
         return dict(list(context.items()) + list(c_def.items()))
 
 
-
 class PersonalGroup(DataMixin, LoginRequiredMixin, ListView):
     login_url = 'login'
     model = Schedule
@@ -67,8 +65,8 @@ class PersonalGroup(DataMixin, LoginRequiredMixin, ListView):
         return dict(list(context.items()) + list(c_def.items()))
 
 
-
 class GroupSchedule(DataMixin, ListView):
+    paginate_by = 3
     model = Schedule
     template_name = 'training/schedule.html'
     context_object_name = 'info'
@@ -81,7 +79,6 @@ class GroupSchedule(DataMixin, ListView):
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(title="Group schedule")
         return dict(list(context.items()) + list(c_def.items()))
-
 
 
 class NewTraining(DataMixin, LoginRequiredMixin, CreateView):

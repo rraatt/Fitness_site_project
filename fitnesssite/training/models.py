@@ -1,5 +1,7 @@
 from django.db import models
 from django.db.models import Q
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from examination.models import Methodic
 from abonement.models import Client, Employees
@@ -26,6 +28,15 @@ class Owner(models.Model):
     def __str__(self):
         ref = self.client or self.group
         return str(ref)
+
+    @receiver(post_save, sender='training.Group')
+    def create_owner(sender, instance, created, **kwargs):
+        if created:
+            Owner.objects.create(group=instance)
+
+    @receiver(post_save, sender='training.Group')
+    def save_owner(sender, instance, **kwargs):
+        instance.owner.save()
 
 
 class Schedule(models.Model):
@@ -62,4 +73,6 @@ class Group(models.Model):
 
     def __str__(self):
         return self.name
+
+
 
