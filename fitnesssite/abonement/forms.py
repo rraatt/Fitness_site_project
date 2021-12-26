@@ -6,7 +6,8 @@ class BuyAbonement(forms.ModelForm):
 
     class Meta:
         model = Abonements
-        fields = ['type_id', 'client_id', 'trainer_id', 'duration', 'num_of_trainings']
+        fields = ['type_id', 'trainer_id', 'duration', 'num_of_trainings']
+
 
 
 class ClientForm(forms.ModelForm):
