@@ -38,7 +38,7 @@ class Abonements(models.Model):
     purchase_date = models.DateField(auto_now_add=True)
     duration = models.DurationField()
     num_of_trainings = models.IntegerField()
-    price = models.IntegerField()
+    #price = models.IntegerField(null=True)
 
 
 class AbonementType(models.Model):
