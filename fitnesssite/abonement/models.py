@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.urls.base import reverse
 
 
 # Create your models here.
@@ -38,7 +39,6 @@ class Abonements(models.Model):
     purchase_date = models.DateField(auto_now_add=True)
     duration = models.DurationField()
     num_of_trainings = models.IntegerField()
-    #price = models.IntegerField()
 
 
 class AbonementType(models.Model):
@@ -67,7 +67,7 @@ class Client(models.Model):
     patronymic = models.CharField(max_length=50, blank=True)
     birthday = models.DateField(null=True)
     sex = models.CharField(max_length=1, choices=SEX, blank=True)
-    phone_number = models.IntegerField(null=True)
+    phone_number = models.CharField(max_length=50, blank=True)
     description = models.TextField(blank=True)
 
     def __str__(self):
@@ -81,3 +81,6 @@ class Client(models.Model):
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.client.save()
+
+    def get_absolute_url(self):
+        return reverse('profile', kwargs={'client_id': self.pk})
