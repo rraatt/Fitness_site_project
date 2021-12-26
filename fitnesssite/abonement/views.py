@@ -8,6 +8,7 @@ from django.urls import reverse_lazy
 from abonement.forms import BuyAbonement, ClientForm
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import Client
 
 
 # Create your views here.
@@ -19,9 +20,15 @@ def index(request):
 class AddAbonement(DataMixin, LoginRequiredMixin, CreateView):
     form_class = BuyAbonement
     template_name = 'abonement/buy.html'
-    success_url = reverse_lazy('home')
+    success_url = 'profile'
     login_url = reverse_lazy('home')
     raise_exception = True
+
+    def form_valid(self, form):
+        cur_user = self.request.user
+        cur_client = Client.objects.get(user=cur_user)
+        form.instance.client_id = cur_client
+        return super(AddAbonement, self).form_valid(form)
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
