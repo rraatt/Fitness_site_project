@@ -4,3 +4,5 @@ from .models import *
 
 admin.site.register(Client)
 admin.site.register(Employees)
+admin.site.register(AbonementType)
+admin.site.register(Abonements)
