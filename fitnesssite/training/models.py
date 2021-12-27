@@ -1,3 +1,6 @@
+import datetime
+
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import Q
 from django.db.models.signals import post_save
@@ -49,6 +52,11 @@ class Schedule(models.Model):
     class Meta:
         verbose_name = 'Schedule of training'
         ordering = ['date', 'time_start']
+
+    def save(self, *args, **kwargs):
+        if self.date < datetime.date.today():
+            raise ValidationError("The date cannot be in the past!")
+        super(Schedule, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('join_group', kwargs={'group_id': self.client_group_id})
