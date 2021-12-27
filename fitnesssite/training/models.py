@@ -29,7 +29,8 @@ class Owner(models.Model):
 
 
 class Schedule(models.Model):
-    id_trainer = models.ForeignKey(Employees, on_delete=models.CASCADE, limit_choices_to={'profession': 't'})
+    id_trainer = models.ForeignKey(Employees, on_delete=models.CASCADE, limit_choices_to={'profession': 't'},
+                                   verbose_name='Trainer')
     client_group = models.ForeignKey(Owner, on_delete=models.CASCADE)
     date = models.DateField()
     time_start = models.TimeField()
