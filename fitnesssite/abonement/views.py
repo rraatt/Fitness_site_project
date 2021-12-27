@@ -37,14 +37,12 @@ class AddAbonement(DataMixin, LoginRequiredMixin, CreateView):
 
 
 class ShowProfile(DataMixin, LoginRequiredMixin, UpdateView):
-    #instance = get_object_or_404(Client, id=id)
     model = Client
     form_class = ClientForm
     template_name = 'abonement/client.html'
     success_url = reverse_lazy('home')
     login_url = reverse_lazy('login')
     raise_exception = True
-    #client_id
 
     def get_object(self, queryset=None):
         cur_user = self.request.user
@@ -53,9 +51,7 @@ class ShowProfile(DataMixin, LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        #cur_user = self.request.user
-        #client_pk = Client.objects.get(user=cur_user).pk
-        c_def = self.get_user_context(title="Profile")#, client_id=client_pk)
+        c_def = self.get_user_context(title="Profile")
         return dict(list(context.items()) + list(c_def.items()))
 
 
