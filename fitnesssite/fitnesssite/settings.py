@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'training.apps.TrainingConfig',
     'abonement.apps.AbonementConfig',
+    'captcha',
     'examination.apps.ExaminationConfig',
     'rangefilter'
 ]

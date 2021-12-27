@@ -1,8 +1,10 @@
 from django import forms
 from .models import *
+from captcha.fields import CaptchaField
 
 
 class NewAppointment(forms.ModelForm):
+    captcha = CaptchaField()
     class Meta:
         model = Schedule
         fields = ['id_trainer', 'date', 'time_start', 'time_end']

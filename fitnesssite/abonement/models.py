@@ -31,14 +31,26 @@ class Employees(models.Model):
     def __str__(self):
         return f'{self.name} {self.surname}'
 
+    class Meta:
+        verbose_name = 'Employee'
+        verbose_name_plural = 'Employees'
+
 
 class Abonements(models.Model):
-    type_id = models.ForeignKey('AbonementType', on_delete=models.PROTECT)
-    client_id = models.ForeignKey('Client', on_delete=models.PROTECT)
-    trainer_id = models.ForeignKey(Employees, on_delete=models.PROTECT, limit_choices_to={'profession': 't'})
+    type_id = models.ForeignKey('AbonementType', on_delete=models.PROTECT, verbose_name='Type')
+    client_id = models.ForeignKey('Client', on_delete=models.PROTECT, verbose_name='Client')
+    trainer_id = models.ForeignKey(Employees, on_delete=models.PROTECT, limit_choices_to={'profession': 't'},
+                                   verbose_name='Trainer')
     purchase_date = models.DateField(auto_now_add=True)
-    duration = models.DurationField()
+    duration = models.IntegerField()
     num_of_trainings = models.IntegerField()
+
+    def __str__(self):
+        return f'Client: {self.client_id.surname} {self.client_id.name}, Trainer: {self.trainer_id.surname} '
+
+    class Meta:
+        verbose_name = 'Abonement'
+        verbose_name_plural = 'Abonements'
 
 
 class AbonementType(models.Model):
@@ -83,4 +95,4 @@ class Client(models.Model):
         instance.client.save()
 
     def get_absolute_url(self):
-        return reverse('profile', kwargs={'client_id': self.pk})
+        return reverse('profile')

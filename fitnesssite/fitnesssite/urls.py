@@ -38,6 +38,7 @@ urlpatterns = [
     path('groups/<int:group_id>/', enlist, name='join_group'),
     path('profile', ShowProfile.as_view(), name='profile'),
     path('buy', AddAbonement.as_view(), name='buy'),
+    path('captcha', include('captcha.urls')),
     path('logout', logout_user, name='logout')
 ]
 
