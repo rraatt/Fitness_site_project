@@ -9,6 +9,7 @@ from abonement.forms import BuyAbonement, ClientForm
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Client
+from captcha.fields import CaptchaField
 
 
 # Create your views here.
