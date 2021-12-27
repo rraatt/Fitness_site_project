@@ -8,6 +8,7 @@ from abonement.utils import DataMixin
 
 
 class ExamInfo(DataMixin, LoginRequiredMixin, ListView):
+    paginate_by = 10
     login_url = 'login'
     model = Examination
     template_name = 'training/examination.html'

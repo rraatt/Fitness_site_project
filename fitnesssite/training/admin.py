@@ -1,4 +1,4 @@
-from importlib.resources import _
+from django.utils.translation import ugettext_lazy as _
 
 from django.contrib import admin
 from rangefilter.filters import DateRangeFilter

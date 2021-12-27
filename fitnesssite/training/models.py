@@ -1,5 +1,10 @@
+import datetime
+
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import Q
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from examination.models import Methodic
 from abonement.models import Client, Employees
@@ -27,6 +32,15 @@ class Owner(models.Model):
         ref = self.client or self.group
         return str(ref)
 
+    @receiver(post_save, sender='training.Group')
+    def create_owner(sender, instance, created, **kwargs):
+        if created:
+            Owner.objects.create(group=instance)
+
+    @receiver(post_save, sender='training.Group')
+    def save_owner(sender, instance, **kwargs):
+        instance.owner.save()
+
 
 class Schedule(models.Model):
     id_trainer = models.ForeignKey(Employees, on_delete=models.CASCADE, limit_choices_to={'profession': 't'},
@@ -39,6 +53,11 @@ class Schedule(models.Model):
     class Meta:
         verbose_name = 'Schedule of training'
         ordering = ['date', 'time_start']
+
+    def save(self, *args, **kwargs):
+        if self.date < datetime.date.today():
+            raise ValidationError("The date cannot be in the past!")
+        super(Schedule, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('join_group', kwargs={'group_id': self.client_group_id})
@@ -63,4 +82,6 @@ class Group(models.Model):
 
     def __str__(self):
         return self.name
+
+
 

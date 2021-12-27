@@ -3,6 +3,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.views.generic import ListView, CreateView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from abonement.utils import DataMixin
+from .forms import NewAppointment
 from .models import *
 
 
@@ -15,7 +16,6 @@ class Home(DataMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(title="Home")
         return dict(list(context.items()) + list(c_def.items()))
-
 
 
 def enlist(request, group_id):
@@ -47,7 +47,6 @@ class PersonalSchedule(DataMixin, LoginRequiredMixin, ListView):
         return dict(list(context.items()) + list(c_def.items()))
 
 
-
 class PersonalGroup(DataMixin, LoginRequiredMixin, ListView):
     login_url = 'login'
     model = Schedule
@@ -67,8 +66,8 @@ class PersonalGroup(DataMixin, LoginRequiredMixin, ListView):
         return dict(list(context.items()) + list(c_def.items()))
 
 
-
 class GroupSchedule(DataMixin, ListView):
+    paginate_by = 10
     model = Schedule
     template_name = 'training/schedule.html'
     context_object_name = 'info'
@@ -83,11 +82,9 @@ class GroupSchedule(DataMixin, ListView):
         return dict(list(context.items()) + list(c_def.items()))
 
 
-
 class NewTraining(DataMixin, LoginRequiredMixin, CreateView):
     login_url = 'login'
-    model = Schedule
-    fields = ('id_trainer', 'date', 'time_start', 'time_end')
+    form_class = NewAppointment
     success_url = 'personal_trainings'
     template_name = 'training/new_training.html'
 
