@@ -14,7 +14,7 @@ Including another URL conf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from abonement.views import index, RegisterUser, LoginUser, AddAbonement, logout_user, ShowProfile
 from training.views import Home, NewTraining, enlist, GroupSchedule, PersonalGroup, PersonalSchedule
@@ -36,5 +36,6 @@ urlpatterns = [
     path('groups/<int:group_id>/', enlist, name='join_group'),
     path('profile', ShowProfile.as_view(), name='profile'),
     path('buy', AddAbonement.as_view(), name='buy'),
+    path('captcha', include('captcha.urls')),
     path('logout', logout_user, name='logout')
 ]
