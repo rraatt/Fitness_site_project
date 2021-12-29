@@ -5,12 +5,9 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
 class BuyAbonement(forms.ModelForm):
-
     class Meta:
         model = Abonements
         fields = ['type_id', 'trainer_id', 'duration', 'num_of_trainings']
-        widgets = {
-        }
 
     def clean_duration(self):
         duration = self.cleaned_data.get('duration')
@@ -26,7 +23,6 @@ class BuyAbonement(forms.ModelForm):
 
 
 class ClientForm(forms.ModelForm):
-
     class Meta:
         model = Client
         fields = ['name', 'surname', 'patronymic', 'birthday', 'sex', 'phone_number', 'description']

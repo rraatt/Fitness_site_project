@@ -8,6 +8,7 @@ from django.urls import reverse_lazy
 from abonement.forms import BuyAbonement, ClientForm, RegisterUserForm, LoginUserForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Client
+from captcha.fields import CaptchaField
 
 
 # Create your views here.
