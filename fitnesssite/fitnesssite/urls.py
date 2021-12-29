@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.decorators.cache import cache_page
 
-from abonement.views import index, RegisterUser, LoginUser, AddAbonement, logout_user, ShowProfile
+from abonement.views import RegisterUser, LoginUser, AddAbonement, logout_user, ShowProfile
 from training.views import Home, NewTraining, enlist, GroupSchedule, PersonalGroup, PersonalSchedule
 from examination.views import *
 
@@ -26,7 +26,6 @@ from examination.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', Home.as_view(), name='home'),
-    path('abonement', index),
     path('groups', cache_page(60)(GroupSchedule.as_view()), name='group_schedule'),
     path('login', LoginUser.as_view(), name='login'),
     path('register', RegisterUser.as_view(), name='register'),
