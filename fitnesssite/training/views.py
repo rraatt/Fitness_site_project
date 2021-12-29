@@ -39,7 +39,7 @@ class PersonalSchedule(DataMixin, LoginRequiredMixin, ListView):
     def get_queryset(self):
         current_user = self.request.user
         cur_client = Client.objects.get(user=current_user)
-        return Schedule.objects.filter(client_group__client=cur_client)
+        return Schedule.objects.filter(client_group__client=cur_client).prefetch_related('id_trainer')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -58,7 +58,7 @@ class PersonalGroup(DataMixin, LoginRequiredMixin, ListView):
         current_user = self.request.user
         cur_client = Client.objects.get(user=current_user)
         cur_groups = Group.objects.filter(id_clients=cur_client)
-        return Schedule.objects.filter(client_group__group__in=cur_groups)
+        return Schedule.objects.filter(client_group__group__in=cur_groups).prefetch_related('client_group')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -74,7 +74,7 @@ class GroupSchedule(DataMixin, ListView):
     extra_context = {'title': 'Group trainings'}
 
     def get_queryset(self):
-        return Schedule.objects.filter(client_group__group__isnull=False)
+        return Schedule.objects.filter(client_group__group__isnull=False).prefetch_related('client_group')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
