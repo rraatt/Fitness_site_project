@@ -77,7 +77,7 @@ class Client(models.Model):
     name = models.CharField(max_length=50, blank=True)
     surname = models.CharField(max_length=50, blank=True)
     patronymic = models.CharField(max_length=50, blank=True)
-    birthday = models.DateField(null=True)
+    birthday = models.DateField(null=True, blank=True)
     sex = models.CharField(max_length=1, choices=SEX, blank=True)
     phone_number = models.CharField(max_length=50, blank=True)
     description = models.TextField(blank=True)

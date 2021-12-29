@@ -5,8 +5,7 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth import logout
 from abonement.utils import DataMixin
 from django.urls import reverse_lazy
-from abonement.forms import BuyAbonement, ClientForm
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from abonement.forms import BuyAbonement, ClientForm, RegisterUserForm, LoginUserForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Client
 
@@ -60,7 +59,7 @@ class ShowProfile(DataMixin, LoginRequiredMixin, UpdateView):
 
 
 class RegisterUser(DataMixin, CreateView):
-    form_class = UserCreationForm
+    form_class = RegisterUserForm
     template_name = 'abonement/register.html'
     success_url = reverse_lazy('login')
 
@@ -71,7 +70,7 @@ class RegisterUser(DataMixin, CreateView):
 
 
 class LoginUser(DataMixin, LoginView):
-    form_class = AuthenticationForm
+    form_class = LoginUserForm
     template_name = 'abonement/login.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
