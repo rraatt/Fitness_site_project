@@ -1,5 +1,4 @@
-from django.contrib.auth.models import User
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import redirect
 from django.views.generic import ListView, CreateView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from abonement.utils import DataMixin
@@ -42,7 +41,7 @@ class PersonalSchedule(DataMixin, LoginRequiredMixin, ListView):
     def get_queryset(self):
         current_user = self.request.user
         cur_client = Client.objects.get(user=current_user)
-        return Schedule.objects.filter(client_group__client=cur_client).prefetch_related('id_trainer')
+        return Schedule.objects.filter(client_group__client=cur_client, date__gte=datetime.date.today()).prefetch_related('id_trainer')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -62,7 +61,7 @@ class PersonalGroup(DataMixin, LoginRequiredMixin, ListView):
         current_user = self.request.user
         cur_client = Client.objects.get(user=current_user)
         cur_groups = Group.objects.filter(id_clients=cur_client)
-        return Schedule.objects.filter(client_group__group__in=cur_groups).prefetch_related('client_group')
+        return Schedule.objects.filter(client_group__group__in=cur_groups, date__gte=datetime.date.today()).prefetch_related('client_group')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -79,7 +78,7 @@ class GroupSchedule(DataMixin, ListView):
     extra_context = {'title': 'Group trainings'}
 
     def get_queryset(self):
-        return Schedule.objects.filter(client_group__group__isnull=False).prefetch_related('client_group')
+        return Schedule.objects.filter(client_group__group__isnull=False, date__gte=datetime.date.today()).prefetch_related('client_group')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)

@@ -4,11 +4,15 @@
 {% block content %}
 <h1>{{title}}</h1>
 <ul>
+    {% if not info %}
+    <h2>No trainings in groups, you ve joined</h2>
+    {% else %}
     {% for entry in info %}
     <li>
         <p>{{entry.client_group}} {{entry.date}} {{entry.time_start}}-{{entry.time_end}}</p>
 			</li>
     </li>
     {% endfor %}
+    {% endif %}
 </ul>
 {% endblock %}

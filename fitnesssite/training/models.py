@@ -75,6 +75,9 @@ class Training(models.Model):
     class Meta:
         verbose_name = 'Training statistic'
 
+    def __str__(self):
+        return f'{str(self.id_schedule)}, '
+
 
 class Group(models.Model):
     """Class for storing name of the group and clients it contains"""

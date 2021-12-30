@@ -4,6 +4,9 @@
 {% block content %}
 <h1>{{title}}</h1>
 <ul>
+    {% if not info %}
+    <h2>No trainings found</h2>
+    {% else %}
     {% for entry in info %}
     <li>
         <p>{{entry.id_trainer}} {{entry.date}} {{entry.time_start}}-{{entry.time_end}}</p>
@@ -11,5 +14,6 @@
 			</li>
     </li>
     {% endfor %}
+    {% endif%}
 </ul>
 {% endblock %}

@@ -38,7 +38,8 @@ urlpatterns = [
     path('profile', ShowProfile.as_view(), name='profile'),
     path('buy', AddAbonement.as_view(), name='buy'),
     path('captcha', include('captcha.urls')),
-    path('logout', logout_user, name='logout')
+    path('logout', logout_user, name='logout'),
+    path('results', cache_page(60)(ResInfo.as_view()), name='results')
 ]
 
 if settings.DEBUG:
