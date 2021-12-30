@@ -9,8 +9,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Client, Abonements
 
 
-# Create your views here.
-
 class AddAbonement(DataMixin, LoginRequiredMixin, CreateView):
     form_class = BuyAbonement
     template_name = 'abonement/buy.html'

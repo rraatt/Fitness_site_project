@@ -27,6 +27,7 @@ class IsGroup(admin.SimpleListFilter):
 
 
 class ScheduleAdmin(admin.ModelAdmin):
+    """Displays and filters for schedule"""
     list_display = ('id_trainer', 'client_group', 'date', 'time_start', 'time_end')
     list_filter = (('date', DateRangeFilter), IsGroup)
     search_fields = ('date', 'id_trainer__name', 'client_group__client__name', 'client_group__client__surname',
@@ -34,6 +35,7 @@ class ScheduleAdmin(admin.ModelAdmin):
 
 
 class GroupAdmin(admin.ModelAdmin):
+    """DIsplays and filters for groups"""
     list_display = ('name',)
     search_fields = ('name', 'id_clients__name', 'id__clients__surname')
 

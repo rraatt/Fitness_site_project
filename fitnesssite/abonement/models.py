@@ -2,10 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.urls.base import reverse
-
-
-# Create your models here.
 
 
 class Employees(models.Model):
@@ -44,7 +40,7 @@ class Abonements(models.Model):
     num_of_trainings = models.IntegerField()
 
     def __str__(self):
-        return f'Client: {self.client_id.surname} {self.client_id.name}\n'\
+        return f'Client: {str(self.client_id)}\n'\
                f'Date of purchase: {self.purchase_date}\nDuration: {self.duration}\n' \
                f'Number of trainings {self.num_of_trainings}'
 

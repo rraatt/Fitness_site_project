@@ -1,6 +1,3 @@
-import datetime
-
-from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import Q
 from django.db.models.signals import post_save
@@ -9,8 +6,6 @@ from django.dispatch import receiver
 from examination.models import Methodic
 from abonement.models import Client, Employees
 from django.urls import reverse
-
-# Create your models here.
 
 
 class Owner(models.Model):

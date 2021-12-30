@@ -6,8 +6,9 @@ from .models import *
 from abonement.models import Client
 from abonement.utils import DataMixin
 
-"""Class for viewing information about examinations"""
+
 class ExamInfo(DataMixin, LoginRequiredMixin, ListView):
+    """Class for viewing information about examinations"""
     paginate_by = 10
     login_url = 'login'
     model = Examination
@@ -15,7 +16,6 @@ class ExamInfo(DataMixin, LoginRequiredMixin, ListView):
     context_object_name = 'info'
     extra_context = {'title': 'Examinations'}
 
-    """function for displaying information for a specific user"""
     def get_queryset(self):
         current_user = self.request.user
         current_client = Client.objects.get(user=current_user)
@@ -26,8 +26,9 @@ class ExamInfo(DataMixin, LoginRequiredMixin, ListView):
         c_def = self.get_user_context(title="Your examinations")
         return dict(list(context.items()) + list(c_def.items()))
 
-"""Class for viewing information about result of training"""
+
 class ResInfo(DataMixin, LoginRequiredMixin, ListView):
+    """Class for viewing information about result of training"""
     paginate_by = 10
     login_url = 'login'
     model = Training
@@ -35,7 +36,6 @@ class ResInfo(DataMixin, LoginRequiredMixin, ListView):
     context_object_name = 'info'
     extra_context = {'title': 'Results'}
 
-    """function for displaying information for a specific user"""
     def get_queryset(self):
         current_user = self.request.user
         current_client = Client.objects.get(user=current_user)
@@ -46,5 +46,3 @@ class ResInfo(DataMixin, LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(title="Your results")
         return dict(list(context.items()) + list(c_def.items()))
-
-

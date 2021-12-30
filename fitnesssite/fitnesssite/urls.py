@@ -20,7 +20,7 @@ from django.views.decorators.cache import cache_page
 
 from abonement.views import RegisterUser, LoginUser, AddAbonement, logout_user, ShowProfile, ShowAbonements
 from training.views import Home, NewTraining, enlist, GroupSchedule, PersonalGroup, PersonalSchedule
-from examination.views import *
+from examination.views import ResInfo, ExamInfo
 
 
 urlpatterns = [

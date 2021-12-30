@@ -1,3 +1,5 @@
+import datetime
+
 from django.shortcuts import redirect
 from django.views.generic import ListView, CreateView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -5,8 +7,6 @@ from abonement.utils import DataMixin
 from .forms import NewAppointment
 from .models import *
 
-
-# Create your views here.
 
 class Home(DataMixin, TemplateView):
     """Simple template view for showing home page"""

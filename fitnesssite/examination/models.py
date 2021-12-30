@@ -3,10 +3,8 @@ from abonement.models import Client, Employees
 from django.urls import reverse
 
 
-# Create your models here.
-
-"""Class for creating a table in the examination information database"""
 class Examination(models.Model):
+    """Class for creating a table in the examination information database"""
     date_examination = models.DateField(auto_now_add=True)
     id_client = models.ForeignKey(Client, on_delete=models.CASCADE)
     id_employ = models.ForeignKey(Employees, on_delete=models.PROTECT, limit_choices_to={'profession': 'd'})
@@ -27,8 +25,9 @@ class Examination(models.Model):
     def __str__(self):
         return f'{self.id_client}, {self.result_of_examination}'
 
-"""Class for creating a table in the database about the research methodology"""
+
 class Methodic(models.Model):
+    """Class for creating a table in the database about the research methodology"""
     id_examination = models.ForeignKey(Examination, on_delete=models.PROTECT)
     methodic = models.TextField(max_length=63)
 
@@ -41,5 +40,3 @@ class Methodic(models.Model):
 
     def __str__(self):
         return f'{self.id_examination}, {self.methodic}'
-
-

@@ -1,12 +1,18 @@
+import datetime
+
 from django import forms
+from django.core.exceptions import ValidationError
+
 from .models import *
 
 
 class DateInp(forms.DateInput):
+    """Class for adding calendar to form"""
     input_type = 'date'
 
 
 class TimeInp(forms.TimeInput):
+    """Class for adding clock to form"""
     input_type = 'time'
 
 
