@@ -10,11 +10,15 @@
   <button type="submit">Search</button>
 </form>
 <ul>
+    {% if not abons %}
+    <h2>No abonements found</h2>
+    {% else %}
     {% for entry in abons %}
     <li>
         <p>{{entry}}</p>
     </li>
     {% endfor %}
+    {% endif %}
 </ul>
 
 {% endblock %}

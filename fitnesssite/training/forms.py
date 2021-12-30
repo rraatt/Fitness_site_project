@@ -6,13 +6,19 @@ class DateInp(forms.DateInput):
     input_type = 'date'
 
 
+class TimeInp(forms.TimeInput):
+    input_type = 'time'
+
+
 class NewAppointment(forms.ModelForm):
     """Form for a new personal traininga, contains checks for date"""
     class Meta:
         model = Schedule
         fields = ['id_trainer', 'date', 'time_start', 'time_end']
         widgets = {
-            'date': DateInp()
+            'date': DateInp(),
+            'time_start': TimeInp(),
+            'time_end': TimeInp()
         }
 
     def clean(self):
