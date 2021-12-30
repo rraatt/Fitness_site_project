@@ -1,5 +1,4 @@
-from django.contrib.auth.models import User
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import redirect
 from django.views.generic import ListView, CreateView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from abonement.utils import DataMixin
@@ -10,6 +9,7 @@ from .models import *
 # Create your views here.
 
 class Home(DataMixin, TemplateView):
+    """Simple template view for showing home page"""
     template_name = 'training/home.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -19,6 +19,7 @@ class Home(DataMixin, TemplateView):
 
 
 def enlist(request, group_id):
+    """Function to add a client to a group"""
     current_user = request.user
     if current_user.is_authenticated:
         cur_client = Client.objects.get(user=current_user.id)
@@ -31,6 +32,7 @@ def enlist(request, group_id):
 
 
 class PersonalSchedule(DataMixin, LoginRequiredMixin, ListView):
+    """Class for viewing clients personal trainings"""
     login_url = 'login'
     model = Schedule
     template_name = 'training/personal_schedule.html'
@@ -39,7 +41,7 @@ class PersonalSchedule(DataMixin, LoginRequiredMixin, ListView):
     def get_queryset(self):
         current_user = self.request.user
         cur_client = Client.objects.get(user=current_user)
-        return Schedule.objects.filter(client_group__client=cur_client)
+        return Schedule.objects.filter(client_group__client=cur_client, date__gte=datetime.date.today()).prefetch_related('id_trainer')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -48,6 +50,7 @@ class PersonalSchedule(DataMixin, LoginRequiredMixin, ListView):
 
 
 class PersonalGroup(DataMixin, LoginRequiredMixin, ListView):
+    """Class for viewing group trainings client has joined"""
     login_url = 'login'
     model = Schedule
     extra_context = {'title': 'Your group trainings'}
@@ -58,7 +61,7 @@ class PersonalGroup(DataMixin, LoginRequiredMixin, ListView):
         current_user = self.request.user
         cur_client = Client.objects.get(user=current_user)
         cur_groups = Group.objects.filter(id_clients=cur_client)
-        return Schedule.objects.filter(client_group__group__in=cur_groups)
+        return Schedule.objects.filter(client_group__group__in=cur_groups, date__gte=datetime.date.today()).prefetch_related('client_group')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -67,6 +70,7 @@ class PersonalGroup(DataMixin, LoginRequiredMixin, ListView):
 
 
 class GroupSchedule(DataMixin, ListView):
+    """Class for viewing generlal group schdule and giving ability to enlist in a training"""
     paginate_by = 10
     model = Schedule
     template_name = 'training/schedule.html'
@@ -74,7 +78,7 @@ class GroupSchedule(DataMixin, ListView):
     extra_context = {'title': 'Group trainings'}
 
     def get_queryset(self):
-        return Schedule.objects.filter(client_group__group__isnull=False)
+        return Schedule.objects.filter(client_group__group__isnull=False, date__gte=datetime.date.today()).prefetch_related('client_group')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -83,6 +87,7 @@ class GroupSchedule(DataMixin, ListView):
 
 
 class NewTraining(DataMixin, LoginRequiredMixin, CreateView):
+    """Form class for creating a new personal training"""
     login_url = 'login'
     form_class = NewAppointment
     success_url = 'personal_trainings'

@@ -14,6 +14,8 @@ from django.urls import reverse
 
 
 class Owner(models.Model):
+    """Intermediate table for connecting groups and clients with schedule, only one field can contain information
+    automatically created with group instances and created, if not exists during enlist function"""
     group = models.OneToOneField('Group', null=True, blank=True, on_delete=models.CASCADE)
     client = models.OneToOneField(Client, null=True, blank=True, on_delete=models.CASCADE)
 
@@ -43,6 +45,8 @@ class Owner(models.Model):
 
 
 class Schedule(models.Model):
+    """Class for containing info about schedule of trainings references trainer and owner, contains get_absolute_url for
+    joining a group"""
     id_trainer = models.ForeignKey(Employees, on_delete=models.CASCADE, limit_choices_to={'profession': 't'},
                                    verbose_name='Trainer')
     client_group = models.ForeignKey(Owner, on_delete=models.CASCADE)
@@ -54,11 +58,6 @@ class Schedule(models.Model):
         verbose_name = 'Schedule of training'
         ordering = ['date', 'time_start']
 
-    def save(self, *args, **kwargs):
-        if self.date < datetime.date.today():
-            raise ValidationError("The date cannot be in the past!")
-        super(Schedule, self).save(*args, **kwargs)
-
     def get_absolute_url(self):
         return reverse('join_group', kwargs={'group_id': self.client_group_id})
 
@@ -67,6 +66,7 @@ class Schedule(models.Model):
 
 
 class Training(models.Model):
+    """Class for storing info about training can be created by trainer to contain info about clients results"""
     id_schedule = models.ForeignKey(Schedule, on_delete=models.PROTECT)
     id_methodic = models.ForeignKey(Methodic, on_delete=models.PROTECT)
     goal = models.TextField()
@@ -75,8 +75,12 @@ class Training(models.Model):
     class Meta:
         verbose_name = 'Training statistic'
 
+    def __str__(self):
+        return f'{str(self.id_schedule)}, '
+
 
 class Group(models.Model):
+    """Class for storing name of the group and clients it contains"""
     name = models.CharField(max_length=50)
     id_clients = models.ManyToManyField(Client, blank=True)
 

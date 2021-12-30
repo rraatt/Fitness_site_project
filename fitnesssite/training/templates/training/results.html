@@ -1,0 +1,15 @@
+{% extends 'training/base.html' %}
+
+{% block content %}
+<h1>{{title}}</h1>
+<ul>
+    {% for entry in info %}
+    <li>
+        <p>Goal: {{entry.goal}}<br>Achievements: {{entry.achievements}}<br></p>
+        <div class="clear"></div>
+        <hr>
+      </li>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

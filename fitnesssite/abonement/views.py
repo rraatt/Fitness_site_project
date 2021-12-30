@@ -1,5 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.shortcuts import redirect, get_object_or_404
 from django.views.generic import CreateView, UpdateView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import logout
@@ -8,14 +7,9 @@ from django.urls import reverse_lazy
 from abonement.forms import BuyAbonement, ClientForm, RegisterUserForm, LoginUserForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Client
-from captcha.fields import CaptchaField
 
 
 # Create your views here.
-
-def index(request):
-    return render(request, "abonement/index.html")
-
 
 class AddAbonement(DataMixin, LoginRequiredMixin, CreateView):
     form_class = BuyAbonement
