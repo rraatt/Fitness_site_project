@@ -3,6 +3,9 @@
 {% block content %}
 <h1>{{title}}</h1>
 <ul>
+    {% if not info %}
+    <h2>No group trainings found</h2>
+    {% else %}
     {% for entry in info %}
     <li>
         <p>Client: {{entry.id_client}}<br>Date: {{entry.date_examination}}<br>Employ:{{entry.id_employ}}<br>
@@ -13,6 +16,7 @@
         <hr>
 			</li>
     </li>
+    {% endif %}
     {% endfor %}
 </ul>
 {% endblock %}
