@@ -1,12 +1,12 @@
 from django.shortcuts import redirect, get_object_or_404
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, ListView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import logout
 from abonement.utils import DataMixin
 from django.urls import reverse_lazy
 from abonement.forms import BuyAbonement, ClientForm, RegisterUserForm, LoginUserForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Client
+from .models import Client, Abonements
 
 
 # Create your views here.
@@ -76,3 +76,23 @@ class LoginUser(DataMixin, LoginView):
 def logout_user(request):
     logout(request)
     return redirect('login')
+
+
+class ShowAbonements(DataMixin, ListView):
+    model = Abonements
+    template_name = 'abonement/showabonements.html'
+    context_object_name = 'abons'
+
+    def get_queryset(self):
+        date = self.request.GET.get('date')
+        cur_user = self.request.user
+        client_pk = Client.objects.get(user=cur_user).pk
+        object_list = Abonements.objects.filter(client_id=client_pk).prefetch_related('client_id')
+        if date:
+            object_list = object_list.filter(purchase_date__gte=date)
+        return object_list
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title="Your abonements")
+        return dict(list(context.items()) + list(c_def.items()))
