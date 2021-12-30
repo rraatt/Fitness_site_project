@@ -5,7 +5,7 @@ from django.urls import reverse
 
 # Create your models here.
 
-
+"""Class for creating a table in the examination information database"""
 class Examination(models.Model):
     date_examination = models.DateField(auto_now_add=True)
     id_client = models.ForeignKey(Client, on_delete=models.CASCADE)
@@ -27,7 +27,7 @@ class Examination(models.Model):
     def __str__(self):
         return f'{self.id_client}, {self.result_of_examination}'
 
-
+"""Class for creating a table in the database about the research methodology"""
 class Methodic(models.Model):
     id_examination = models.ForeignKey(Examination, on_delete=models.PROTECT)
     methodic = models.TextField(max_length=63)
