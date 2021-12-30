@@ -1,6 +1,7 @@
 menu = [{'title': 'Make an appointment', 'url_name': 'new_training'},
             {'title': 'Group trainings', 'url_name': 'group_schedule'},
             {'title': 'Examinations', 'url_name': 'examination'},
+            {'title': 'Results of training', 'url_name': 'results'},
             {'title': 'Buy abonement', 'url_name': 'buy'}]
 
 
