@@ -67,7 +67,7 @@ class Schedule(models.Model):
 
 class Training(models.Model):
     """Class for storing info about training can be created by trainer to contain info about clients results"""
-    id_schedule = models.ForeignKey(Schedule, on_delete=models.PROTECT)
+    id_schedule = models.OneToOneField(Schedule, on_delete=models.PROTECT)
     id_methodic = models.ForeignKey(Methodic, on_delete=models.PROTECT)
     goal = models.TextField()
     achievements = models.TextField()
