@@ -10,6 +10,7 @@ from .models import Client, Abonements
 
 
 class AddAbonement(DataMixin, LoginRequiredMixin, CreateView):
+    """View class for buying abonements"""
     form_class = BuyAbonement
     template_name = 'abonement/buy.html'
     success_url = reverse_lazy('home')
@@ -29,6 +30,7 @@ class AddAbonement(DataMixin, LoginRequiredMixin, CreateView):
 
 
 class ShowProfile(DataMixin, LoginRequiredMixin, UpdateView):
+    """View class for showing client's profile"""
     model = Client
     form_class = ClientForm
     template_name = 'abonement/client.html'
@@ -48,6 +50,7 @@ class ShowProfile(DataMixin, LoginRequiredMixin, UpdateView):
 
 
 class RegisterUser(DataMixin, CreateView):
+    """View class for registration """
     form_class = RegisterUserForm
     template_name = 'abonement/register.html'
     success_url = reverse_lazy('login')
@@ -59,6 +62,7 @@ class RegisterUser(DataMixin, CreateView):
 
 
 class LoginUser(DataMixin, LoginView):
+    """View class for authorisation"""
     form_class = LoginUserForm
     template_name = 'abonement/login.html'
 
@@ -72,11 +76,13 @@ class LoginUser(DataMixin, LoginView):
 
 
 def logout_user(request):
+    """View method for logging out"""
     logout(request)
     return redirect('login')
 
 
 class ShowAbonements(DataMixin, ListView):
+    """View class for displaying abonements"""
     model = Abonements
     template_name = 'abonement/showabonements.html'
     context_object_name = 'abons'

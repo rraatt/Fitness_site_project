@@ -6,6 +6,7 @@ menu = [{'title': 'Make an appointment', 'url_name': 'new_training'},
 
 
 class DataMixin:
+    """Mixin for displaying pages"""
     def get_user_context(self, **kwargs):
         context = kwargs
         user_menu = menu.copy()
