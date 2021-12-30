@@ -3,6 +3,9 @@
 {% block content %}
 <h1>{{title}}</h1>
 <ul>
+    {% if not info %}
+    <h2>No group trainings found</h2>
+    {% else %}
     {% for entry in info %}
     <li>
         <p>Goal: {{entry.goal}}<br>Achievements: {{entry.achievements}}<br></p>
@@ -11,5 +14,6 @@
       </li>
     </li>
     {% endfor %}
+    {% endif %}
 </ul>
 {% endblock %}
