@@ -9,6 +9,7 @@ from django.urls.base import reverse
 
 
 class Employees(models.Model):
+    """Model class for storing Employees"""
     SEX = [
         ('m', 'man'),
         ('w', 'woman'),
@@ -37,6 +38,7 @@ class Employees(models.Model):
 
 
 class Abonements(models.Model):
+    """Model class for storing Abonements"""
     type_id = models.ForeignKey('AbonementType', on_delete=models.PROTECT, verbose_name='Type')
     client_id = models.ForeignKey('Client', on_delete=models.PROTECT, verbose_name='Client')
     purchase_date = models.DateField(auto_now_add=True)
@@ -54,6 +56,7 @@ class Abonements(models.Model):
 
 
 class AbonementType(models.Model):
+    """Model class for storing Abonements type"""
     TRAINING_TYPE = [
         ('p', 'personal'),
         ('g', 'group')
@@ -68,6 +71,7 @@ class AbonementType(models.Model):
 
 
 class Client(models.Model):
+    """Model class for storing Clients"""
     SEX = [
         ('m', 'man'),
         ('w', 'woman'),

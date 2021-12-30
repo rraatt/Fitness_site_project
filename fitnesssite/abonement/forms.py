@@ -6,6 +6,7 @@ from captcha.fields import CaptchaField
 
 
 class BuyAbonement(forms.ModelForm):
+    """Class model form for buying an abonement"""
     class Meta:
         model = Abonements
         fields = ['type_id', 'duration', 'num_of_trainings']
@@ -24,6 +25,7 @@ class BuyAbonement(forms.ModelForm):
 
 
 class ClientForm(forms.ModelForm):
+    """Class model form for filling profile of the client"""
     class Meta:
         model = Client
         fields = ['name', 'surname', 'patronymic', 'birthday', 'sex', 'phone_number', 'description']
@@ -33,6 +35,7 @@ class ClientForm(forms.ModelForm):
 
 
 class RegisterUserForm(UserCreationForm):
+    """Class model form for registration"""
     username = forms.CharField(label='Username', widget=forms.TextInput(attrs={'class': 'form-input'}))
     email = forms.EmailField(label='Email', widget=forms.EmailInput(attrs={'class': 'form-input'}))
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
@@ -45,6 +48,7 @@ class RegisterUserForm(UserCreationForm):
 
 
 class LoginUserForm(AuthenticationForm):
+    """Class model form for authorization"""
     username = forms.CharField(label='Username', widget=forms.TextInput(attrs={'class': 'form-input'}))
     password = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
     captcha = CaptchaField()
