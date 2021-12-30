@@ -39,14 +39,14 @@ class Employees(models.Model):
 class Abonements(models.Model):
     type_id = models.ForeignKey('AbonementType', on_delete=models.PROTECT, verbose_name='Type')
     client_id = models.ForeignKey('Client', on_delete=models.PROTECT, verbose_name='Client')
-    trainer_id = models.ForeignKey(Employees, on_delete=models.PROTECT, limit_choices_to={'profession': 't'},
-                                   verbose_name='Trainer')
     purchase_date = models.DateField(auto_now_add=True)
     duration = models.IntegerField()
     num_of_trainings = models.IntegerField()
 
     def __str__(self):
-        return f'Client: {self.client_id.surname} {self.client_id.name}, Trainer: {self.trainer_id.surname} '
+        return f'Client: {self.client_id.surname} {self.client_id.name}\n'\
+               f'Date of purchase: {self.purchase_date}\nDuration: {self.duration}\n' \
+               f'Number of trainings {self.num_of_trainings}'
 
     class Meta:
         verbose_name = 'Abonement'

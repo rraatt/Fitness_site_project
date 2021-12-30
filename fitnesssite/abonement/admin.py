@@ -11,9 +11,9 @@ class ClientAdmin(admin.ModelAdmin):
 
 
 class AbonementsAdmin(admin.ModelAdmin):
-    list_display = ['type_id', 'client_id', 'trainer_id', 'purchase_date', 'duration', 'num_of_trainings']
-    list_display_links = ['type_id', 'client_id', 'trainer_id', 'purchase_date', 'duration', 'num_of_trainings']
-    search_fields = ['type_id', 'client_id', 'trainer_id', 'purchase_date', 'duration', 'num_of_trainings']
+    list_display = ['type_id', 'client_id', 'purchase_date', 'duration', 'num_of_trainings']
+    list_display_links = ['type_id', 'client_id', 'purchase_date', 'duration', 'num_of_trainings']
+    search_fields = ['type_id', 'client_id', 'purchase_date', 'duration', 'num_of_trainings']
     list_filter = ['duration']
 
 
