@@ -3,6 +3,7 @@ from .models import *
 
 
 class NewAppointment(forms.ModelForm):
+    """Form for a new personal traininga, contains checks for date"""
     class Meta:
         model = Schedule
         fields = ['id_trainer', 'date', 'time_start', 'time_end']

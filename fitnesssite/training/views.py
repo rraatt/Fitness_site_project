@@ -10,6 +10,7 @@ from .models import *
 # Create your views here.
 
 class Home(DataMixin, TemplateView):
+    """Simple template view for showing home page"""
     template_name = 'training/home.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -19,6 +20,7 @@ class Home(DataMixin, TemplateView):
 
 
 def enlist(request, group_id):
+    """Function to add a client to a group"""
     current_user = request.user
     if current_user.is_authenticated:
         cur_client = Client.objects.get(user=current_user.id)
@@ -31,6 +33,7 @@ def enlist(request, group_id):
 
 
 class PersonalSchedule(DataMixin, LoginRequiredMixin, ListView):
+    """Class for viewing clients personal trainings"""
     login_url = 'login'
     model = Schedule
     template_name = 'training/personal_schedule.html'
@@ -48,6 +51,7 @@ class PersonalSchedule(DataMixin, LoginRequiredMixin, ListView):
 
 
 class PersonalGroup(DataMixin, LoginRequiredMixin, ListView):
+    """Class for viewing group trainings client has joined"""
     login_url = 'login'
     model = Schedule
     extra_context = {'title': 'Your group trainings'}
@@ -67,6 +71,7 @@ class PersonalGroup(DataMixin, LoginRequiredMixin, ListView):
 
 
 class GroupSchedule(DataMixin, ListView):
+    """Class for viewing generlal group schdule and giving ability to enlist in a training"""
     paginate_by = 10
     model = Schedule
     template_name = 'training/schedule.html'
@@ -83,6 +88,7 @@ class GroupSchedule(DataMixin, ListView):
 
 
 class NewTraining(DataMixin, LoginRequiredMixin, CreateView):
+    """Form class for creating a new personal training"""
     login_url = 'login'
     form_class = NewAppointment
     success_url = 'personal_trainings'

@@ -6,6 +6,7 @@ from .models import *
 
 
 class IsGroup(admin.SimpleListFilter):
+    """Filter for schedule, to get only group trainings or personal trainings"""
     title = _('Is group')
     parameter_name = 'is_group'
 
