@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.decorators.cache import cache_page
 
-from abonement.views import RegisterUser, LoginUser, AddAbonement, logout_user, ShowProfile
+from abonement.views import RegisterUser, LoginUser, AddAbonement, logout_user, ShowProfile, ShowAbonements
 from training.views import Home, NewTraining, enlist, GroupSchedule, PersonalGroup, PersonalSchedule
 from examination.views import *
 
@@ -38,7 +38,8 @@ urlpatterns = [
     path('profile', ShowProfile.as_view(), name='profile'),
     path('buy', AddAbonement.as_view(), name='buy'),
     path('captcha', include('captcha.urls')),
-    path('logout', logout_user, name='logout')
+    path('logout', logout_user, name='logout'),
+    path('abonements', ShowAbonements.as_view(), name='abonements')
 ]
 
 if settings.DEBUG:

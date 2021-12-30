@@ -8,7 +8,7 @@ from captcha.fields import CaptchaField
 class BuyAbonement(forms.ModelForm):
     class Meta:
         model = Abonements
-        fields = ['type_id', 'trainer_id', 'duration', 'num_of_trainings']
+        fields = ['type_id', 'duration', 'num_of_trainings']
 
     def clean_duration(self):
         duration = self.cleaned_data.get('duration')

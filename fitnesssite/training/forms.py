@@ -2,10 +2,17 @@ from django import forms
 from .models import *
 
 
+class DateInp(forms.DateInput):
+    input_type = 'date'
+
+
 class NewAppointment(forms.ModelForm):
     class Meta:
         model = Schedule
         fields = ['id_trainer', 'date', 'time_start', 'time_end']
+        widgets = {
+            'date': DateInp()
+        }
 
     def clean(self):
         cleaned_data = super(NewAppointment, self).clean()
